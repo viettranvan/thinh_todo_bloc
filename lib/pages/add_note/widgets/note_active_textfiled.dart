@@ -7,12 +7,14 @@ class NoteActiveTextField extends StatelessWidget {
     required this.onChanged,
     this.style,
     this.maxLines,
+    this.hintText,
   });
 
   final TextEditingController controller;
   final TextStyle? style;
   final int? maxLines;
   final Function(String)? onChanged;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,10 @@ class NoteActiveTextField extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
       onChanged: onChanged,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
+        hintText: hintText,
         contentPadding: EdgeInsets.zero,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
         ),
       ),
