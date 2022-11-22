@@ -9,8 +9,10 @@ class LoadNote extends DetailEvent {
 }
 
 class DeleteNote extends DetailEvent {
-   DeleteNote({required this.note});
+  DeleteNote({required this.note});
   final Note note;
 }
 
-class ToggleEditNote extends DetailEvent {}
+class ToggleEdit extends DetailEvent {}
+
+class SubmitEditNote extends DetailEvent {}

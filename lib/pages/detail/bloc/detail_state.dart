@@ -15,6 +15,11 @@ class DeleteSuccess extends DetailState {
   final Note note;
 }
 
+class UpdateSuccess extends DetailState {
+  UpdateSuccess({required this.note});
+  final Note note;
+}
+
 class DetailLoadError extends DetailState {
   DetailLoadError({required this.errorMessage});
   final String errorMessage;

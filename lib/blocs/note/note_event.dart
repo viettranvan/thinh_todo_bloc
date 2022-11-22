@@ -18,3 +18,9 @@ class GlobalDeleteNote extends NoteEvent {
   GlobalDeleteNote({required this.note});
   final Note note;
 }
+
+
+class GlobalUpdateNote extends NoteEvent {
+  GlobalUpdateNote({required this.note});
+  final Note note;
+}

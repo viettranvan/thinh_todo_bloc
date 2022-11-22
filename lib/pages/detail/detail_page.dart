@@ -29,6 +29,16 @@ class DetailPage extends StatelessWidget {
               ),
             );
             Navigator.pop(context);
+          }else if (state is UpdateSuccess) {
+            BlocProvider.of<NoteBloc>(context).add(GlobalUpdateNote(
+              note: state.note,
+            ));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Update success'),
+                duration: Duration(milliseconds: 2000),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -61,7 +71,7 @@ class DetailPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: NoteTextField(
                     controller: bloc.titleController,
-                    editable: false,
+                    editable: bloc.isEditable,
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -69,7 +79,7 @@ class DetailPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: NoteTextField(
                     controller: bloc.dateController,
-                    editable: false,
+                    editable: bloc.isEditable,
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -81,7 +91,7 @@ class DetailPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: NoteTextField(
-                      editable: false,
+                      editable: bloc.isEditable,
                       controller: bloc.descriptionController,
                       maxLines: 100,
                       style: const TextStyle(
@@ -113,7 +123,15 @@ class DetailPage extends StatelessWidget {
                           onTap: () => _onAdd(context),
                           child: const Icon(Icons.add),
                         ),
-                        const Icon(Icons.edit),
+                        bloc.isEditable
+                            ? InkWell(
+                                onTap: () => _submitEditNote(context),
+                                child: const Icon(Icons.check),
+                              )
+                            : InkWell(
+                                onTap: () => _onEdit(context),
+                                child: const Icon(Icons.edit),
+                              ),
                       ],
                     ),
                   ),
@@ -134,5 +152,15 @@ class DetailPage extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const AddNotePage(),
     ));
+  }
+
+  _onEdit(BuildContext context) {
+    var bloc = context.read<DetailBloc>();
+    bloc.add(ToggleEdit());
+  }
+
+  _submitEditNote(BuildContext context) {
+    var bloc = context.read<DetailBloc>();
+    bloc.add(SubmitEditNote());
   }
 }
