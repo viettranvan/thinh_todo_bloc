@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid.dart';
 
 class Note {
+  final String id = const Uuid().v1();
   final Color color;
   final String titleNote;
   final String dateTime;

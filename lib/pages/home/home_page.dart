@@ -119,7 +119,9 @@ class _HomePageState extends State<HomePage> {
       item: item,
       onTapNote: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const DetailPage(),
+          builder: (context) => DetailPage(
+            note: item,
+          ),
         ));
       },
     );

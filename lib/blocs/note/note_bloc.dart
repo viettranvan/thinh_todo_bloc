@@ -14,6 +14,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
         )) {
     on<UpdateListNote>(_onUpdate);
     on<GlobalAddNewNote>(_onAddNewNote);
+    on<GlobalDeleteNote>(_onDeleteNote);
   }
 
   FutureOr<void> _onUpdate(UpdateListNote event, Emitter<NoteState> emit) {
@@ -29,6 +30,20 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
 
     newList.add(event.newNote);
 
+    emit(NoteInitial(
+      listNote: newList,
+      listSearch: [],
+    ));
+  }
+
+  FutureOr<void> _onDeleteNote(
+      GlobalDeleteNote event, Emitter<NoteState> emit) {
+    var newList = [...state.listNote];
+
+    var index = newList.indexWhere((element) => element.id == event.note.id);
+    if (index >= 0) {
+      newList.removeAt(index);
+    }
     emit(NoteInitial(
       listNote: newList,
       listSearch: [],

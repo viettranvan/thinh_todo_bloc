@@ -33,7 +33,7 @@ class AddNotePage extends StatelessWidget {
                     duration: Duration(milliseconds: 2000),
                   ),
                 );
-                Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
               }
             },
             builder: (context, state) {
